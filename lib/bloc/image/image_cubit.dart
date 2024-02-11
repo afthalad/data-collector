@@ -5,17 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../data/repositories/image_repsitory.dart';
-import '../../core/utils/helpers/app_preferences.dart';
-import '../../core/utils/helpers/id_prefs_helper.dart';
 import '../../presentation/widgets/count_widget.dart';
 import '../../presentation/widgets/itemid_widget.dart';
+import '../../core/utils/helpers/app_preferences.dart';
+import '../../core/utils/helpers/id_prefs_helper.dart';
+import '../../presentation/widgets/loading_button.dart';
+import '../../presentation/widgets/base widgets/st_alert_widget.dart';
 
 part 'image_state.dart';
 
 class ImageCubit extends Cubit<ImageState> {
-  ImageCubit(this.imageRepository) : super(ImageInitial());
-  final ImageRepository imageRepository;
+  ImageCubit(this.imageRepository, this.context) : super(ImageInitial());
 
+  final BuildContext context;
+  final ImageRepository imageRepository;
   Future<void> requester(
     List<String> imageFileList,
     String itemid,
@@ -24,30 +27,7 @@ class ImageCubit extends Cubit<ImageState> {
     print("object");
     print(view);
     emit(LoadingState());
-
-    String userId = IdSaver.idSaver();
-    FormData formData = FormData();
-    formData = FormData.fromMap({
-      'images': imageFileList,
-      // 'images': jsonEncode(imageFileList),
-      'user_id': userId,
-      'image_type': view,
-      'item_id': itemid,
-    });
-
-    try {
-      final response = await imageRepository.requester(formData);
-      final responseStatusCode = response.statusCode;
-      var data = response.data;
-      print(response);
-
-      if (responseStatusCode == 200 && data['status'] == "saved") {
-        emit(FirstSetImageCompleted(imageFileList.length, view));
-      }
-    } catch (e) {
-      print(e);
-      emit(ErrorState());
-    }
+    return;
   }
 
   Future<void> againRequester(
@@ -73,19 +53,6 @@ class ImageCubit extends Cubit<ImageState> {
         'image_type': viewStatus,
         'item_id': itemid,
       });
-
-      // for (var image in imageFileList) {
-      //   formData.files.add(MapEntry(
-      //     'images',
-      //     await MultipartFile.fromFile(image.path),
-      //   ));
-      // }
-
-      // formData.fields.addAll({
-      //   'user_id': userId,
-      //   'image_type': viewStatus,
-      //   'item_id': itemid,
-      // }.entries);
 
       try {
         final response = await imageRepository.requester(formData);

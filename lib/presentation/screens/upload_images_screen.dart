@@ -183,13 +183,9 @@ class _UploadImagesScreenState extends State<UploadImagesScreen> {
               "Please capture the face two of washer for further detection",
             );
           }
-          return const STWarningAlertWidget(
-            "Please capture the head of screw for further detection",
-          );
+          return state.screwheadAlertwidget;
         } else if (state is LoadingState) {
-          return const STWarningAlertWidget(
-            "We are processing you image...\n",
-          );
+          return state.loadingAlertWidget;
         }
 
         if (widget.isScrew) {
@@ -389,10 +385,7 @@ class _UploadImagesScreenState extends State<UploadImagesScreen> {
             );
           }
         } else if (state is LoadingState) {
-          return STButton(
-            state: state,
-            onClick: () {},
-          );
+          return state.loadingButton;
         }
         return STButton();
       },

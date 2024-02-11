@@ -1,11 +1,10 @@
-import 'package:data_collector/presentation/widgets/base%20widgets/st_alert_widget.dart';
-import 'package:data_collector/presentation/widgets/base%20widgets/st_button_widget.dart';
-import 'package:data_collector/presentation/widgets/base%20widgets/st_textfield_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-
+import 'package:flutter/material.dart';
 import '../../bloc/image/image_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../presentation/widgets/base widgets/st_alert_widget.dart';
+import '../../presentation/widgets/base widgets/st_button_widget.dart';
+import '../../presentation/widgets/base widgets/st_textfield_widget.dart';
 
 class ItemIdWidget extends StatefulWidget {
   const ItemIdWidget({super.key});

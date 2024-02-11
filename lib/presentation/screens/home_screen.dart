@@ -7,7 +7,6 @@ import '../../bloc/image/image_cubit.dart';
 import '../../configs/styles/color_util.dart';
 import '../../presentation/widgets/header_widget.dart';
 import '../widgets/base widgets/st_button_widget.dart';
-import '../widgets/base widgets/st_textfield_widget.dart';
 import '../../presentation/screens/upload_images_screen.dart';
 import '../../presentation/widgets/base widgets/st_alert_widget.dart';
 
@@ -65,7 +64,6 @@ class _HomeScreenState extends State<HomeScreen> {
         if (state is Dropdown) {
           return dropdownWidget();
         } else if (state is CountEntered) {
-          // return countWidget();
           return state.widget;
         } else if (state is ItemIdEntered) {
           return state.widget;
@@ -127,84 +125,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ],
     );
   }
-
-  // Widget itemIdWidget() {
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       const STWarningAlertWidget(
-  //         "Kindly, Please enter the item id for futher saving process",
-  //       ),
-  //       const Gap(10),
-  //       Padding(
-  //         padding: const EdgeInsets.all(8.0),
-  //         child: Text(
-  //           "* Please enter the ITEM ID before detect image ?",
-  //           style: Theme.of(context).textTheme.titleMedium!.copyWith(
-  //                 fontWeight: FontWeight.normal,
-  //                 color: Colors.white,
-  //               ),
-  //         ),
-  //       ),
-  //       const Gap(10),
-  //       StTextField(
-  //         hintText: "Enter item id ",
-  //         textController: itemidController,
-  //         isAutoFocus: false,
-  //       ),
-  //       const Gap(10),
-  //       buttonWidget("itemid"),
-  //       STButton(
-  //         text: "Back",
-  //         backgroundColor: Colors.transparent,
-  //         onClick: () {
-  //           context.read<ImageCubit>().backScreen("dropdown");
-  //         },
-  //       )
-  //     ],
-  //   );
-  // }
-
-  // Widget countWidget() {
-  //   return Padding(
-  //     padding: const EdgeInsets.symmetric(vertical: 0),
-  //     child: Column(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: [
-  //         const STWarningAlertWidget(
-  //           "Kindly, Please enter the count for futher proper saving process",
-  //         ),
-  //         const Gap(10),
-  //         Padding(
-  //           padding: const EdgeInsets.all(8.0),
-  //           child: Text(
-  //             "* How many images you want to detect?",
-  //             style: Theme.of(context).textTheme.titleMedium!.copyWith(
-  //                   fontWeight: FontWeight.normal,
-  //                   color: Colors.white,
-  //                 ),
-  //           ),
-  //         ),
-  //         const Gap(10),this is
-  //         StTextField(
-  //           hintText: "Count 25 ",
-  //           isNumber: true,
-  //           isAutoFocus: false,
-  //           textController: countController,
-  //         ),
-  //         const Gap(10),
-  //         buttonWidget("count"),
-  //         STButton(
-  //           text: "Back",
-  //           backgroundColor: Colors.transparent,
-  //           onClick: () {
-  //             context.read<ImageCubit>().backScreen("itemid");
-  //           },
-  //         )
-  //       ],
-  //     ),
-  //   );
-  // }
 
   Widget buttonWidget(String status) {
     return STButton(

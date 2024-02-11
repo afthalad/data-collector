@@ -83,10 +83,13 @@ class _STButtonState extends State<STButton> {
           ),
           backgroundColor: widget.backgroundColor,
         ),
-        child: widget.state is LoadingState?
-            ? const SpinKitThreeBounce(
-                color: Colors.white,
-                size: 20.0,
+        child: widget.state is LoadingState
+            ? const Visibility(
+                visible: true, // Add your condition for visibility here
+                child: SpinKitThreeBounce(
+                  color: Colors.white,
+                  size: 20.0,
+                ),
               )
             : Text(
                 widget.text,

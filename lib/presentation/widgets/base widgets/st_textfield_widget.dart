@@ -133,7 +133,6 @@ class _StTextFieldState extends State<StTextField> {
               ),
             ),
             validator: (value) {
-              print(value);
               if (widget.isRequired && value!.isEmpty) {
                 return 'This field is required';
               }

@@ -1,0 +1,29 @@
+ _base64Images.isNotEmpty && _base64Images.length > 3
+            ? Column(
+                children: [
+                  STButton(
+                    onClick: () {
+                      setState(() {
+                        isAllImages = !isAllImages;
+                      });
+                    },
+                    buttonType: "icon",
+                    backgroundColor: Colors.black.withOpacity(0),
+                    text: isAllImages ? "Complete" : "Edit Images",
+                    icon: isAllImages
+                        ? Icons.keyboard_arrow_up
+                        : Icons.keyboard_arrow_down,
+                    borderColor: ColorUtils.buttonColors,
+                  ),
+                  isAllImages == false
+                      ? Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "So far you've picked ${_base64Images.length} image if you want to edit or delete the unwanted image please press edit button",
+                            style: const TextStyle(color: Colors.white70),
+                          ),
+                        )
+                      : const SizedBox()
+                ],
+              )
+            : const SizedBox()

@@ -43,7 +43,6 @@ class _UploadImagesScreenState extends State<UploadImagesScreen> {
     try {
       final XFile? image = await _picker.pickImage(
         source: isCamera ? ImageSource.camera : ImageSource.gallery,
-        imageQuality: 1,
       );
       if (image == null) return;
       Directory tempDir = await getTemporaryDirectory();

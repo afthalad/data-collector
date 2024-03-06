@@ -129,6 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget buttonWidget(String status) {
     return STButton(
       onClick: () {
+        print(dvalue);
         if ((status == "itemid" && itemidController.text.isEmpty) ||
             (status == "count" && countController.text.isEmpty)) {
           return;
@@ -150,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
             MaterialPageRoute(
               builder: (context) => UploadImagesScreen(
                 itemId: itemidController.text,
-                isScrew: dvalue == "Washer" ? true : false,
+                isScrew: dvalue == "Screw" ? true : false,
                 count: int.parse(countController.text),
               ),
             ),

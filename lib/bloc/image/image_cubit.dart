@@ -27,7 +27,34 @@ class ImageCubit extends Cubit<ImageState> {
     print("object");
     print(view);
     emit(LoadingState());
-    return;
+    String userId = IdSaver.idSaver();
+    FormData formData = FormData();
+    // final String viewStatus = runCount == 1 ? "face_two" : view;
+    formData = FormData.fromMap({
+      'images': [...imageFileList],
+      'user_id': userId,
+      'image_type': view,
+      'item_id': itemid,
+    });
+
+    try {
+      final response = await imageRepository.requester(formData);
+      final responseStatusCode = response.statusCode;
+      var data = response.data;
+      print(response);
+
+      if (responseStatusCode == 200 && data['status'] == "saved") {
+        if (view == "top_view" || view == "face_two") {
+          emit(ImageInitial());
+          return;
+        }
+        emit(FirstSetImageCompleted(imageFileList.length, view));
+      }
+    } catch (e) {
+      emit(ErrorState());
+      // Future.delayed(const Duration(seconds: 1));
+      // emit(ImageInitial());
+    }
   }
 
   Future<void> againRequester(

@@ -348,6 +348,7 @@ class _UploadImagesScreenState extends State<UploadImagesScreen> {
         }
       },
       builder: (context, state) {
+        print("after $state");
         if (state is FirstSetImageCompleted) {
           final String stateStatus = state.status;
 
@@ -397,9 +398,9 @@ class _UploadImagesScreenState extends State<UploadImagesScreen> {
         ? const SizedBox()
         : BlocConsumer<ImageCubit, ImageState>(
             listener: (context, state) {
-              if (state is ImageInitial) {
-                Navigator.pop(context);
-              }
+              // if (state is ImageInitial) {
+              //   Navigator.pop(context);
+              // }
             },
             builder: (context, state) {
               if (state is FirstSetImageCompleted) {

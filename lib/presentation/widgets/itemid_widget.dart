@@ -48,12 +48,14 @@ class _ItemIdWidgetState extends State<ItemIdWidget> {
         const Gap(10),
         STButton(
           onClick: () {
-            context.read<ImageCubit>().screen(
-                  "itemid",
-                  0,
-                  itemidController.text,
-                  widget.isScrew,
-                );
+            if (itemidController.text.isNotEmpty) {
+              context.read<ImageCubit>().screen(
+                    "itemid",
+                    0,
+                    itemidController.text,
+                    widget.isScrew,
+                  );
+            }
           },
         ),
         STButton(

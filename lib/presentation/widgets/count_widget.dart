@@ -75,7 +75,8 @@ class _CountWidgetState extends State<CountWidget> {
             MaterialPageRoute(
               builder: (context) => UploadImagesScreen(
                 itemId: widget.itemid,
-                isScrew: widget.isScrew == "Washer" ? true : false,
+                isScrew: widget.isScrew,
+                // isScrew: false,
                 count: int.parse(countController.text),
               ),
             ),

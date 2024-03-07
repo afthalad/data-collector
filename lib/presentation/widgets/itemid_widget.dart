@@ -1,14 +1,19 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:gap/gap.dart';
 import 'package:flutter/material.dart';
-import '../../bloc/image/image_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../bloc/image/image_cubit.dart';
 import '../../presentation/widgets/base widgets/st_alert_widget.dart';
 import '../../presentation/widgets/base widgets/st_button_widget.dart';
 import '../../presentation/widgets/base widgets/st_textfield_widget.dart';
 
 class ItemIdWidget extends StatefulWidget {
-  const ItemIdWidget({super.key});
-
+  const ItemIdWidget({
+    Key? key,
+    required this.isScrew,
+  }) : super(key: key);
+  final bool isScrew;
   @override
   State<ItemIdWidget> createState() => _ItemIdWidgetState();
 }
@@ -43,9 +48,12 @@ class _ItemIdWidgetState extends State<ItemIdWidget> {
         const Gap(10),
         STButton(
           onClick: () {
-            context
-                .read<ImageCubit>()
-                .screen("itemid", 0, itemidController.text, false);
+            context.read<ImageCubit>().screen(
+                  "itemid",
+                  0,
+                  itemidController.text,
+                  widget.isScrew,
+                );
           },
         ),
         STButton(

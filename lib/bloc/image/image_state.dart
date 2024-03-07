@@ -28,7 +28,14 @@ class LoadingState extends ImageState {
 }
 
 class ItemIdEntered extends ImageState {
-  final widget = const ItemIdWidget();
+  bool isScrew;
+  late ItemIdWidget widget;
+
+  ItemIdEntered(this.isScrew) {
+    widget = ItemIdWidget(
+      isScrew: isScrew,
+    );
+  }
 }
 
 final class Dropdown extends ImageState {}
@@ -79,3 +86,5 @@ final class FirstSetImageCompleted extends ImageState {
   );
   FirstSetImageCompleted(this.imgCount, this.status);
 }
+
+final class Success extends ImageState {}

@@ -61,16 +61,16 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       },
       builder: (context, state) {
-        if (state is Dropdown) {
+        if (state is Dropdown ||
+            state is ImageInitial ||
+            state is ErrorState ||
+            state is FirstSetImageCompleted) {
           return dropdownWidget();
         } else if (state is CountEntered) {
           return state.widget;
         } else if (state is ItemIdEntered) {
           return state.widget;
-        } else if (state is ImageInitial || state is ErrorState) {
-          return dropdownWidget();
         }
-
         return const SizedBox();
       },
     );
@@ -126,10 +126,87 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  // Widget itemIdWidget() {
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: [
+  //       const STWarningAlertWidget(
+  //         "Kindly, Please enter the item id for futher saving process",
+  //       ),
+  //       const Gap(10),
+  //       Padding(
+  //         padding: const EdgeInsets.all(8.0),
+  //         child: Text(
+  //           "* Please enter the ITEM ID before detect image ?",
+  //           style: Theme.of(context).textTheme.titleMedium!.copyWith(
+  //                 fontWeight: FontWeight.normal,
+  //                 color: Colors.white,
+  //               ),
+  //         ),
+  //       ),
+  //       const Gap(10),
+  //       StTextField(
+  //         hintText: "Enter item id ",
+  //         textController: itemidController,
+  //         isAutoFocus: false,
+  //       ),
+  //       const Gap(10),
+  //       buttonWidget("itemid"),
+  //       STButton(
+  //         text: "Back",
+  //         backgroundColor: Colors.transparent,
+  //         onClick: () {
+  //           context.read<ImageCubit>().backScreen("dropdown");
+  //         },
+  //       )
+  //     ],
+  //   );
+  // }
+
+  // Widget countWidget() {
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(vertical: 0),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         const STWarningAlertWidget(
+  //           "Kindly, Please enter the count for futher proper saving process",
+  //         ),
+  //         const Gap(10),
+  //         Padding(
+  //           padding: const EdgeInsets.all(8.0),
+  //           child: Text(
+  //             "* How many images you want to detect?",
+  //             style: Theme.of(context).textTheme.titleMedium!.copyWith(
+  //                   fontWeight: FontWeight.normal,
+  //                   color: Colors.white,
+  //                 ),
+  //           ),
+  //         ),
+  //         const Gap(10),this is
+  //         StTextField(
+  //           hintText: "Count 25 ",
+  //           isNumber: true,
+  //           isAutoFocus: false,
+  //           textController: countController,
+  //         ),
+  //         const Gap(10),
+  //         buttonWidget("count"),
+  //         STButton(
+  //           text: "Back",
+  //           backgroundColor: Colors.transparent,
+  //           onClick: () {
+  //             context.read<ImageCubit>().backScreen("itemid");
+  //           },
+  //         )
+  //       ],
+  //     ),
+  //   );
+  // }
+
   Widget buttonWidget(String status) {
     return STButton(
       onClick: () {
-        print(dvalue);
         if ((status == "itemid" && itemidController.text.isEmpty) ||
             (status == "count" && countController.text.isEmpty)) {
           return;
@@ -151,7 +228,7 @@ class _HomeScreenState extends State<HomeScreen> {
             MaterialPageRoute(
               builder: (context) => UploadImagesScreen(
                 itemId: itemidController.text,
-                isScrew: dvalue == "Screw" ? true : false,
+                isScrew: dvalue == "Washer" ? true : false,
                 count: int.parse(countController.text),
               ),
             ),

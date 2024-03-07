@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
     var providers = [
       BlocProvider<ImageCubit>(
         create: (BuildContext context) =>
-            ImageCubit(context.read<ImageRepository>(), context),
+            ImageCubit(context.read<ImageRepository>()),
       ),
     ];
     return MultiRepositoryProvider(

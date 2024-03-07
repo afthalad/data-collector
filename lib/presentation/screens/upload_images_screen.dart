@@ -43,6 +43,7 @@ class _UploadImagesScreenState extends State<UploadImagesScreen> {
     try {
       final XFile? image = await _picker.pickImage(
         source: isCamera ? ImageSource.camera : ImageSource.gallery,
+        imageQuality: 1,
       );
       if (image == null) return;
       Directory tempDir = await getTemporaryDirectory();
@@ -347,7 +348,6 @@ class _UploadImagesScreenState extends State<UploadImagesScreen> {
         }
       },
       builder: (context, state) {
-        print(state);
         if (state is FirstSetImageCompleted) {
           final String stateStatus = state.status;
 
@@ -370,11 +370,8 @@ class _UploadImagesScreenState extends State<UploadImagesScreen> {
           if (widget.isScrew) {
             return STButton(
               onClick: () {
-                print("props");
-                print(widget.isScrew);
-                print(isChecked);
                 isChecked
-                    ? readCubit.requester(
+                    ? readCubit.againRequester(
                         _base64Images, widget.itemId, 'face_one')
                     : readCubit.requester(
                         _base64Images, widget.itemId, 'face_one');
@@ -391,9 +388,6 @@ class _UploadImagesScreenState extends State<UploadImagesScreen> {
           return state.loadingButton;
         }
         return STButton();
-        // return STButton(onClick: () {
-        //   readCubit.requester(_base64Images, "asdas", 'side_view');
-        // });
       },
     );
   }

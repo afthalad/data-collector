@@ -6,19 +6,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../data/repositories/image_repsitory.dart';
 import '../../presentation/widgets/count_widget.dart';
-import '../../presentation/widgets/itemid_widget.dart';
 import '../../core/utils/helpers/app_preferences.dart';
 import '../../core/utils/helpers/id_prefs_helper.dart';
+import '../../presentation/widgets/itemid_widget.dart';
 import '../../presentation/widgets/loading_button.dart';
 import '../../presentation/widgets/base widgets/st_alert_widget.dart';
 
 part 'image_state.dart';
 
 class ImageCubit extends Cubit<ImageState> {
-  ImageCubit(this.imageRepository, this.context) : super(ImageInitial());
-
-  final BuildContext context;
+  ImageCubit(this.imageRepository) : super(ImageInitial());
   final ImageRepository imageRepository;
+
   Future<void> requester(
     List<String> imageFileList,
     String itemid,
@@ -29,7 +28,7 @@ class ImageCubit extends Cubit<ImageState> {
     emit(LoadingState());
     String userId = IdSaver.idSaver();
     FormData formData = FormData();
-    // final String viewStatus = runCount == 1 ? "face_two" : view;
+
     formData = FormData.fromMap({
       'images': [...imageFileList],
       'user_id': userId,
@@ -45,6 +44,8 @@ class ImageCubit extends Cubit<ImageState> {
 
       if (responseStatusCode == 200 && data['status'] == "saved") {
         if (view == "top_view" || view == "face_two") {
+          emit(FirstSetImageCompleted(imageFileList.length, view));
+          Future.delayed(const Duration(seconds: 1));
           emit(ImageInitial());
           return;
         }
@@ -52,8 +53,8 @@ class ImageCubit extends Cubit<ImageState> {
       }
     } catch (e) {
       emit(ErrorState());
-      // Future.delayed(const Duration(seconds: 1));
-      // emit(ImageInitial());
+      Future.delayed(const Duration(seconds: 1));
+      emit(ImageInitial());
     }
   }
 
@@ -80,6 +81,19 @@ class ImageCubit extends Cubit<ImageState> {
         'image_type': viewStatus,
         'item_id': itemid,
       });
+
+      // for (var image in imageFileList) {
+      //   formData.files.add(MapEntry(
+      //     'images',
+      //     await MultipartFile.fromFile(image.path),
+      //   ));
+      // }
+
+      // formData.fields.addAll({
+      //   'user_id': userId,
+      //   'image_type': viewStatus,
+      //   'item_id': itemid,
+      // }.entries);
 
       try {
         final response = await imageRepository.requester(formData);
@@ -131,7 +145,7 @@ class ImageCubit extends Cubit<ImageState> {
         break;
 
       case "dropdown":
-        emit(ItemIdEntered());
+        emit(ItemIdEntered(isScrew));
         break;
 
       case "init":
@@ -149,7 +163,7 @@ class ImageCubit extends Cubit<ImageState> {
 
     switch (state) {
       case "itemid":
-        emit(ItemIdEntered());
+        emit(ItemIdEntered(false));
         break;
 
       case "dropdown":
